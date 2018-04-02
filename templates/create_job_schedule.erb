@@ -1,0 +1,34 @@
+use sybmgmtdb
+go
+
+sybmgmtdb..sp_sjobcreate @name='sname=every_hour',@option='repeats=1hour, starttime=00:00am, endtime=23:59'
+go
+
+declare @jobcmd varchar(255), @jobid int
+select @jobcmd='jcmd=exec IBM_DBHEALTH..sp_disk_log_backup <%= @DBNAME%>, server=<%= @SNAME%>, jdesc=<%= @DBNAME%> transaction log backup on disk, sname=every_hour'
+exec @jobid=sp_sjobcreate 'sjname=<%= @DBNAME%>_disk_log_backup', @jobcmd
+go
+
+sybmgmtdb..sp_sjobcreate @name='sname=every_Sunday',@option='days=Sunday, starttime=11:00am, endtime=23:00'
+go 
+
+declare @jobcmd varchar(255), @jobid int
+select @jobcmd='jcmd=exec IBM_DBHEALTH..sp_delete_old_jobs_history, server=<%= @SNAME%>, jdesc=Delete old jobs history and output, sname=every_Sunday'
+exec @jobid=sp_sjobcreate 'sjname=delete_old_jobs_history', @jobcmd
+go
+
+sybmgmtdb..sp_sjobcreate @name='sname=every_day',@option='repeats=1day, starttime=00:00am, endtime=23:59'
+go
+
+declare @jobcmd varchar(255), @jobid int
+select @jobcmd='jcmd=exec IBM_DBHEALTH..sp_disk_cumulative_backup <%= @DBNAME%>, server=<%= @SNAME%>, jdesc=<%= @DBNAME%> cumulative db disk backup, sname=every_day_cum_bk'
+exec @jobid=sp_sjobcreate 'sjname=<%= @DBNAME%>_disk_cumulative_backup', @jobcmd
+go
+
+sybmgmtdb..sp_sjobcreate @name='sname=every_day_cum_bk',@option='repeats=1day, starttime=12:30pm, endtime=23:30'
+go
+
+declare @jobcmd varchar(255), @jobid int
+select @jobcmd='jcmd=exec IBM_DBHEALTH..sp_disk_all_db_full_backup, server=<%= @SNAME%>, jdesc=Full database disk backups, sname=every_day'
+exec @jobid=sp_sjobcreate 'sjname=disk_full_backup', @jobcmd
+go

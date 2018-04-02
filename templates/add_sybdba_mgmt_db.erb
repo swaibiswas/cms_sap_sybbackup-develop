@@ -1,0 +1,8 @@
+use sybmgmtdb
+go
+
+sp_adduser sybdba
+go
+
+sp_addexternlogin SYB_JSTASK, sybdba, sybdba, <%= @SYBDBA_PWD %>
+go

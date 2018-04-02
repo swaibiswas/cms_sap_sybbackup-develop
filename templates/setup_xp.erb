@@ -1,0 +1,11 @@
+use master
+go
+sp_addserver <%= @XP %>, ASEnterprise, "<%= @XP %>"
+go
+sp_configure 'xp_cmdshell context', 0
+go
+sp_configure 'start xp server during boot', 1
+go
+exec xp_cmdshell 'pwd'
+go
+

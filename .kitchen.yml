@@ -1,0 +1,26 @@
+---
+driver:
+ name: ssh_gzip
+ hostname: 172.18.19.114
+ username: root
+ boot_timeout: 500
+
+provisioner:
+ name: chef_zero
+ log_file: '/tmp/kitchen/chef-client.log'
+ require_chef_omnibus: false
+ chef_client_path: '/usr/bin/chef-client'
+ sudo: false
+
+platforms:
+ - name: sybase
+   
+suites:
+ - name: test1
+   run_list:
+     #- recipe[cms_sap_bkp::dbconfig]
+     #- recipe[cms_sap_bkp::tsm_client_config]
+     #- recipe[cms_sap_bkp::tsm_client_service_config]
+     #- recipe[cms_sap_sybbackup::default]
+     #-  recipe[cms_sap_sybbackup::syb_config]
+     - recipe[cms_sap_sybbackup::restart_sybase_backup_server]

@@ -1,0 +1,45 @@
+**########################################################
+***#
+***#  * Start Stanza for Sybase Database Full backup on Node <%= @SYBFULL_NODENAME %> for <%= @FSNAME%>
+***#
+***#######################################################
+SErvername                     <%= node[:SYBFULL_SERVERNAME] %>
+COMMMETHOD                     <%= node[:COMMMethod] %>
+TCPServeraddress               <%= @TSMSERVER %>
+TCPPort                        <%= @TCPPORT %>
+passwordaccess                 <%= node[:PASSWORDACCESS] %>
+nodename                       <%= @SYBFULL_NODENAME %>
+passworddir                    <%= node[:tsm_client_home] %>
+schedlogname                   <%= node[:SYBFULL_SCHEDLOGNAME] %>
+errorlogname                   <%= node[:SYBFULL_ERRORLOGNAME] %>
+managedservices                <%= node[:MANAGEDSERVICES] %>
+SCHEDLOGRetention              <%= node[:SCHEDLOGRETENTION] %>
+ERRORLOGRetention              <%= node[:ERRORLOGRETENTION] %>
+
+***
+*** * End Sybase Stanza for Database FULL
+***
+***########################################################
+***########################################################
+***#
+***#  * Start Stanza for Sybase Log Incremental and /backup on Node <%= @SYBINC_NODENAME %> for <%= @FSNAME%>
+***#
+***########################################################
+
+SErvername                     <%= node[:SYBINC_SERVERNAME] %>
+COMMMETHOD                     <%= node[:COMMMethod] %>
+TCPServeraddress               <%= @TSMSERVER %>
+TCPPort                        <%= @TCPPORT %>
+passwordaccess                 <%= node[:PASSWORDACCESS] %>
+nodename                       <%= @SYBINC_NODENAME %>
+SCHEDLOGNAME                   <%= node[:SYBINC_SCHEDLOGNAME] %>
+ERRORLOGNAME                   <%= node[:SYBINC_ERRORLOGNAME] %>
+managedservices                <%= node[:MANAGEDSERVICES] %>
+SCHEDLOGRetention              <%= node[:SCHEDLOGRETENTION] %>
+ERRORLOGRetention              <%= node[:ERRORLOGRETENTION] %>
+
+***
+*** * End Stanza for Sybase Log Incremental and /backup ***
+***
+**########################################################
+

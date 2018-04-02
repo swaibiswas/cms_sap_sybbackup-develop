@@ -1,0 +1,21 @@
+use master
+go
+exec master..sp_dboption <%= @DBNAME %>, 'trunc log on chkpt', false
+go
+
+------ /*   --- As part of #1656 -  it was decided to not take this backup during sybase config
+------ but be taken as a post step by separate script initiated by CAM --
+
+------ use IBM_DBHEALTH
+------ go
+------ IBM_DBHEALTH..sp_tsm_db_full_backup  <%= @DBNAME %>
+------ go
+
+------ */
+
+use master
+go
+exec master..sp_dboption <%= @DBNAME %>,'enforce dump tran sequence', true
+go
+exec master..sp_dboption <%= @DBNAME %>, 'allow incremental dumps', true
+go
